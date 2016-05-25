@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>社团助考——信息登记</title>
+
+
+
+</head>
+
+<body>
+
+<h2>测试一下信息填写能否入库</h2>
+<form method="post" action="mydb/newguy.php">
+	姓名：<input type="text" name="Name"></input>
+	<br>
+	性别：
+	<input type="radio" name="Gender" value="男">男</input>
+	<input type="radio" name="Gender" value="女">女</input>
+	<br>
+	院系：<input type="text" name="College"></input>
+	<br>
+	专业年级：<input type="text" name="Faculty"></input>
+	<br>
+	联系方式：<input type="text" name="Contact"></input>
+	<br>
+	选择体育助考：<input type="checkbox" name="PE"></input>
+	<br>
+	选择学科助考<input type="checkbox" name="Exam"></input>
+	<br>
+	选择四六级助考<input type="checkbox" name="CET"></input>
+	<br>
+	体育助考科目<input type="text" name="PE_Subject"></input>
+	<br>
+	优势科目<input type="text" name="Advantage"></input>
+	<br>
+	欠缺科目<input type="text" name="Drawback"></input>
+	<br>
+	学科助考自习地点<input type="text" name="Exam_Selfstudy_Place"></input>
+	<br>
+	学科助考其他要求、<input type="text" name="Exam_Requirements"></input>
+	<br>
+	是否参加四六级模考<br>
+	<input type="radio" name="CET_Simulate" value="四级">是，四级</input>
+	<input type="radio" name="CET_Simulate" value="六级">是，六级</input>
+	<input type="radio" name="CET_Simulate" value="否">否，不参加</input>
+	<br>
+	四级或六级<br>
+	<input type="radio" name="FourOrSix" value="四级">四级</input>
+	<input type="radio" name="FourOrSix" value="六级">六级</input>
+	<br>
+	四六级自习地点<input type="text" name="CET_Selfstudy_Place"></input>
+	<br>
+	四六级其他要求<input type="text" name="CET_Requirements"></input>
+	<br>
+	<input type="submit" value="提交到数据库"></input>
+</form>
+
+
+</body>
+
+</html>
