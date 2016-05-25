@@ -19,21 +19,10 @@ function changecolor(){
 			ele.className="button gray";
 			break;
 	}
-
-	/*
-	if(ele.className="button gray")
-	{
-		ele.className="button blue";
-		return;
-	}
-	else if(ele.className="button blue")
-	{
-		ele.className="button gray";
-	}
-	*/
 }
 	
 function get(){
+	//获取表单对象
 	var form=document.getElementsByTagName("form");
 
 	//处理体育助考项目选单
@@ -45,9 +34,34 @@ function get(){
 		}
 	}
 	document.getElementById("hide").value=peChosenSubject;
-	alert(peChosenSubject);
+	//alert(peChosenSubject);
 	
-	//form.submit();
+	//检查用户输入
+	if(checkUserInput())
+		form.submit();
+	
+}
+
+function checkUserInput(){
+	//我用“算分法”来判断用户是否输入了必填信息。
+		//每正确填写一个项目则加一分，否则不加分
+		//满分为四分；不得满分者，视为不合格，网页要弹出对话框警告。
+	var mark=0;
+	if(document.getElementById("Name").value != "") 
+		mark++;
+	if(document.getElementById("College").value != "") 
+		mark++;
+	if(document.getElementById("Faculty").value != "") 
+		mark++;
+	if(document.getElementById("Contact").value != "") 
+		mark++;
+		
+	if(mark<4){
+		alert("小伙伴呀，你还有必填项没填好哦！");
+		return false;
+	}
+	else
+		return true;
 }
 
 </script>
@@ -61,7 +75,6 @@ textarea,input{
 	text-align:center;
 	font-size:2em;
 	color:#F00;
-	
 	
 }
 #p2{
@@ -181,6 +194,7 @@ body,td,th {
 
 input{
 	font-family: 微软雅黑, Microsoft Yahei UI;
+	margin-left: 20px;
 }
 </style>
 </head>
@@ -193,31 +207,35 @@ input{
 
 <form method="post" action="mydb/newguy.php">
 <div class="form1">
-姓名：<input type="text"  style="font-size:1em" name="Name"/>
+<p style="font-size:20px; color:red">以下五项是必填的基本信息~</p>
+姓名：<input type="text"  style="font-size:1em" id="Name" name="Name"/>
 <br/>
-性别：<input type="text"  style="font-size:1em" name="Gender"/>
+性别：<br/>
+<input type="radio"  style="font-size:1em" name="Gender" value="男" checked="checked">男</input><br />
+<input type="radio"  style="font-size:1em" name="Gender" value="女" align="center">女</input> 
 <br/>
-院系：<input type="text"  style="font-size:1em"name="College" />
+院系：<input type="text"  style="font-size:1em" id="College" name="College" />
 <br/>
-专业年级：<input type="text"  style="font-size:1em"name="Faculty"/>
+专业年级：<input type="text"  style="font-size:1em" id="Faculty" name="Faculty"/>
 <br/>
-联系方式：<input type="text"  style="font-size:1em"name="Contact"/>
+联系方式：<input type="text"  style="font-size:1em" id="Contact" name="Contact"/>
 </div>
 <div id="form2">
 <br/>
 <br/>
 <p id="p3">我想要(可多选)</p>
+<p style="font-size:20px; color:blue" align="center">点击任意一项就可以填信息啦~</p>
 <table align="center">
-<tr><td><a href="javascript:void(0)" class="button big blue">体育助考</a></td>
-<td><a  href="javascript:void(0)"class="button big blue">理工文考前<br/>帮扶</a></td>
-<td><a href="javascript:void(0)" class="button big blue">四六级帮扶</a></td>
+<tr><td><a href="#PE" class="button big blue">体育助考</a></td>
+<td><a href="#Exam" class="button big blue">理工文考前<br/>帮扶</a></td>
+<td><a href="#CET" class="button big blue">四六级帮扶</a></td>
 </tr>
 </table>
 <br/>
 <br/>
 <br/>
 <br/>
-<div align="center"><a href="javascript:void(0)" class="button big  blue">体育助考</a></div>
+<div align="center"><a name="PE" href="javascript:void(0)" class="button big  blue">体育助考</a></div>
 <table align="center" ><tr><td><a id="网球" name="pesubjects" onclick="changecolor()" href="javascript:void(0)" class="button gray" >网&nbsp&nbsp&nbsp&nbsp球</a></td>
 <td><a href="javascript:void(0)" id="排球" name="pesubjects" onclick="changecolor()"class="button gray">排&nbsp&nbsp&nbsp&nbsp球</a></td>
 <td><a href="javascript:void(0)"id="乒乓球" name="pesubjects" onclick="changecolor()" class="button gray">乒乓球</a></td>
@@ -234,7 +252,7 @@ input{
 <div align="center"><a href="javascript:void(0)"id="有氧健身操" name="pesubjects" onclick="changecolor()" class="button gray">有氧健身操</a></div>
 <input name="PE" id="hide" type="text" style="visibility:hidden" />
 <br/><br/><br/>
-<div align="center"><a href="javascript:void(0)" class="button big  blue">理工文考前帮扶</a></div>
+<div align="center"><a name="Exam" href="javascript:void(0)" class="button big  blue">理工文考前帮扶</a></div>
 
 优势科目：<input type="text"  style="font-size:1em" name="Advantage" />
 <br/>
@@ -247,7 +265,7 @@ input{
 <br/>
 <br/>
 <br/>
-<div align="center"><a href="javascript:void(0)" class="button big  blue">四六级帮扶</a></div>
+<div align="center"><a name="CET" href="javascript:void(0)" class="button big  blue">四六级帮扶</a></div>
 四级还是六级:
 <br/>
 <label><input type="radio" name="FourOrSix" value="四级"/>四级</label>
@@ -259,7 +277,8 @@ input{
 <label><input type="radio" name="CET_Simulate" value="六级" />是，六级</label>
 <label><input type="radio" name="CET_Simulate" value="否" />否</label>
 <br/>
-自习地点<input type="text" style="font-size:1em" name="CET_Selfstudy_Place"/>
+自习地点
+<input type="text" style="font-size:1em" name="CET_Selfstudy_Place"/>
 <br/>
 其他要求
 <input type="text" style="font-size:1em" name="CET_Requirements"/>

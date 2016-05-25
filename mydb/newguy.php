@@ -80,15 +80,12 @@ else
 	die("<h1>非法请求！</h1>");
 }	
 	
+/*********   检查函数，用于检查用户输入并摒弃无效字符  ************/
 function test_input($data) {
    $data = trim($data);
    $data = stripslashes($data);
    $data = htmlspecialchars($data);
    return $data;
 }
-
-
-
-
 
 ?>
