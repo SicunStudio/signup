@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	//连接失败的错误处理
 	if(!$con){
-		die("无法连接数据库");
+		page_Error("连接数据库失败");
 	}
 
 	mysql_select_db("test_signAU",$con);
@@ -51,20 +51,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	try{
 		if(mysql_query($sql,$con)){
 			//echo "成功添加记录";
-			exit("记录添加成功");
+			//exit("记录添加成功");
+			page_Success();
 		}
 		else
 		{
 			//echo "记录添加时出现问题：" . mysql_error();
 			//echo "<br>";
-			die("出错：<br>" . mysql_error());
+			//die("出错：<br>" . mysql_error());
+			page_Error("出错：<br>" . mysql_error());
 		}
 	}
 
 	catch(Exception $e){
+		/*
 		echo "啊哦。。。服务器君出错啦。。。再试一次吧。。。";
 		echo "<br><br>";
 		echo "错误信息：" . $e->getMessage();
+		*/
+		page_Error("服务器君出错了。。。" . $e->getMessage());
 	}
 	
 	mysql_close($con);
@@ -72,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else
 {
 	die("<h1>非法请求！</h1>");
+	//page_Error("<h1>非法请求！</h1>");
 }	
 	
 /*********   检查函数，用于检查用户输入并摒弃无效字符  ************/
@@ -80,6 +86,18 @@ function test_input($data) {
    $data = stripslashes($data);
    $data = htmlspecialchars($data);
    return $data;
+}
+
+/*****************   显示成功和失败的页面   **********************/
+function page_Success(){
+	header("Location: success.htm");
+}
+
+//显示失败页面。。。然而错误信息一直没办法详细显示。。。
+function page_Error($text){
+	global $errText;
+	$errText = $text;
+	header("Location: fail.htm");
 }
 
 ?>
